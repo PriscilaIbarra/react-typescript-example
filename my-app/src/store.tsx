@@ -7,4 +7,6 @@ const reducers = combineReducers({
     repositories : repositoriesReducer
 })
 
+export type RootState = ReturnType <typeof reducers>
+
 export const store = createStore(reducers,{},applyMiddleware(thunk));

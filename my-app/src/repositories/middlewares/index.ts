@@ -9,7 +9,7 @@ import
 } 
 from "../actionsCreators/index";
 
-const baseURL = 'https://registry.npmjs.org/~/v1/search';
+const baseURL = 'https://registry.npmjs.org/-/v1/search';
 
 export const searchRepositories = (term : string) => {
    return async(dispatch:Dispatch<Action>) =>{
@@ -17,12 +17,10 @@ export const searchRepositories = (term : string) => {
                 dispatch(createSearchRepositoriesAction())
                 
                 try{
-                    //const {data} = await axios.get(baseURL,{withCredentials:false,headers:{'Access-Control-Allow-Origin':'*' },params:{text:term}});
-                    const repositories =["a","b"];
-                    //const repositories = await data.objects.map((result:any)=>{
-                    //        return result.package.name
-                   // })
-                    
+                    const {data} = await axios.get(baseURL,{params:{text:term}});
+                    const repositories = await data.objects.map((result:any)=>{
+                          return result.package.name
+                    })
                     dispatch(createSearchRepositoriesSuccessAction(repositories))
                 }
                 catch(error:any){
